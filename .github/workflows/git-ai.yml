@@ -1,0 +1,15 @@
+name: Git AI
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  publish-stats:
+    # SHA-pinned, not @master — bump deliberately. History:
+    # rzsoftware/redzone-actions#18 (visibility), #19 (merge-base range).
+    uses: rzsoftware/redzone-actions/.github/workflows/git-ai.yml@c7c860adcea24313f07064c6f39b45af62c56283
+    permissions:
+      contents: read      # reusable workflow never pushes contents; only write is to S3
+      pull-requests: read
+      id-token: write     # OIDC for aws-actions/configure-aws-credentials
